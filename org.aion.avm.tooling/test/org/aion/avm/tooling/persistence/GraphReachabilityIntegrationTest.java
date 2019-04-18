@@ -42,18 +42,20 @@ public class GraphReachabilityIntegrationTest {
         callStatic(block, contractAddr, getCost_check249(true), "check249", 4);
         
         // Run test.
-        long modify_basicCost = adjustBasicCost(21708L);
-        long modify_miscCharges = 95L + 300L + 100L + 37234L + 65L + 29L + 85L;
+        long modify_basicCost = 21708L;
+        long modify_miscCharges = 209L + 100L + 77L + 37L + 39L + 41L + 114L + 37L + 39L
+            + 23L + 53L + 23L + 76L + 53L + 82L + 148L + 256L + 27L
+            + 100L+ 1509L + 600L + 26L + 26L
+            + 68L + 645L + 68L + 645L + 68L + 645L + 68L + 645L
+            + 68L + 645L + 68L + 645L + 68L + 645L + 68L + 645L
+            + 94L + 65L + 29L + 85L + 100L;
         int graphSizeBefore = 6260;
         int graphSizeAfter = 6256;
         int readCost = StorageFees.READ_PRICE_PER_BYTE * graphSizeBefore;
         int writeCost = StorageFees.WRITE_PRICE_PER_BYTE * graphSizeAfter;
         long modify_storageCharges = readCost + writeCost;
 
-        // This number is an adjustment factor for the cost changes associated with the various ABI improvements
-        // TODO (AKI-120): Get rid of this number, by adjusting the precise measures in the factors above
-        long userlibCost = -28136;
-        callStatic(block, contractAddr, modify_basicCost + modify_miscCharges + modify_storageCharges + userlibCost, "modify249");
+        callStatic(block, contractAddr, modify_basicCost + modify_miscCharges + modify_storageCharges, "modify249");
         
         // Verify after.
         callStatic(block, contractAddr, getCost_check249(false), "check249", 5);
@@ -73,12 +75,24 @@ public class GraphReachabilityIntegrationTest {
         callStatic(block, contractAddr, getCost_check249(true), "check249", 4);
         
         // Run test.
-        long run_basicCost = adjustBasicCost(22796L);
-        long run_miscCharges = 0L
-                + 95L + 300L + 100L + 37234L + 88L + 187L + 100L + 17372L + 600L + 100L + 100L
-                + 95L + 100L + 37234L + 65L + 29L + 85L
-                + 100L + 60L + 100L + 23L + 29L + 23L
-                ;
+        long run_basicCost = 22796L;
+
+        long run_miscCharges = 209L + 100L + 77L + 37L + 39L + 41L + 114L + 37L + 39L
+            + 23L + 53L + 23L + 76L + 53L + 82L + 148L + 256L + 78L
+            + 100L+ 1526L + 600L + 26L + 26L
+            + 68L + 730L + 68L + 730L + 68L + 730L
+            + 94L + 88L + 139L + 29L + 289L + 645L + 36L + 100L + 300L + 300L
+            + 1509L + 26L + 100L + 100L;
+
+        run_miscCharges += 209L + 100L + 77L + 37L + 39L + 41L + 114L + 37L + 39L
+            + 23L + 53L + 23L + 76L + 53L + 82L + 148L + 256L + 27L
+            + 100L+ 1509L + 600L + 26L + 26L
+            + 68L + 645L + 68L + 645L + 68L + 645L + 68L + 645L
+            + 68L + 645L + 68L + 645L + 68L + 645L + 68L + 645L
+            + 94L + 65L + 29L + 85L + 100L;
+
+        run_miscCharges += 100L + 60L + 100L + 23L + 29L + 23L + 100L;
+
         int graphSizeBefore = 6260;
         int graphSizeAfter = 6256;
         int readCost = StorageFees.READ_PRICE_PER_BYTE * graphSizeBefore;
@@ -86,11 +100,7 @@ public class GraphReachabilityIntegrationTest {
         // 2 reads/writes of the same cost.
         long run_storageCharges = 2 * readCost + 2 * writeCost;
 
-        // This number is an adjustment factor for the cost changes associated with the various ABI improvements
-        // TODO (AKI-120): Get rid of this number, by adjusting the precise measures in the factors above
-        long userlibCost = -74100;
-
-        callStatic(block, contractAddr, run_basicCost + run_miscCharges + run_storageCharges + userlibCost, "run249_reentrant_notLoaded");
+        callStatic(block, contractAddr, run_basicCost + run_miscCharges + run_storageCharges, "run249_reentrant_notLoaded");
         
         // Verify after.
         callStatic(block, contractAddr, getCost_check249(false), "check249", 5);
@@ -110,12 +120,23 @@ public class GraphReachabilityIntegrationTest {
         callStatic(block, contractAddr, getCost_check249(true), "check249", 4);
         
         // Run test.
-        long run_basicCost = adjustBasicCost(22604L);
-        long run_miscCharges = 0L
-            + 95L + 300L + 100L + 37234L + 65L + 29L + 88L + 187L + 100L + 17372L + 600L + 100L + 100L
-            + 95L + 100L + 37234L + 65L + 29L + 85L
-            + 100L + 60L + 100L + 23L + 29L + 23L
-            ;
+        long run_basicCost = 22604L;
+        long run_miscCharges = 209L + 100L + 77L + 37L + 39L + 41L + 114L + 37L + 39L
+            + 23L + 53L + 23L + 76L + 53L + 82L + 148L + 256L + 69L
+            + 100L+ 1523L + 600L + 26L + 26L
+            + 68L + 715L + 68L + 715L + 68L + 715L + 68L + 715L
+            + 94L + 65L + 29L + 88L + 139L + 29L + 289L + 645L + 36L
+            + 100L + 300L + 300L + 1509L + 26L + 100L + 100L;
+
+        run_miscCharges += 209L + 100L + 77L + 37L + 39L + 41L + 114L + 37L + 39L
+            + 23L + 53L + 23L + 76L + 53L + 82L + 148L + 256L + 27L
+            + 100L+ 1509L + 600L + 26L + 26L
+            + 68L + 645L + 68L + 645L + 68L + 645L + 68L + 645L
+            + 68L + 645L + 68L + 645L + 68L + 645L + 68L + 645L
+            + 94L + 65L + 29L + 85L + 100L;
+
+        run_miscCharges += 100L + 60L + 100L + 23L + 29L + 23L + 100L;
+
         int graphSizeBefore = 6260;
         int graphSizeAfter = 6256;
         int readCost = StorageFees.READ_PRICE_PER_BYTE * graphSizeBefore;
@@ -123,11 +144,7 @@ public class GraphReachabilityIntegrationTest {
         // 2 reads/writes of the same cost.
         long run_storageCharges = 2 * readCost + 2 * writeCost;
 
-        // This number is an adjustment factor for the cost changes associated with the various ABI improvements
-        // TODO (AKI-120): Get rid of this number, by adjusting the precise measures in the factors above
-        long userlibCost = -73374;
-
-        callStatic(block, contractAddr, run_basicCost + run_miscCharges + run_storageCharges + userlibCost, "run249_reentrant_loaded");
+        callStatic(block, contractAddr, run_basicCost + run_miscCharges + run_storageCharges, "run249_reentrant_loaded");
         
         // Verify after.
         callStatic(block, contractAddr, getCost_check249(false), "check249", 5);
@@ -143,7 +160,7 @@ public class GraphReachabilityIntegrationTest {
         Address contractAddr = doInitialDeploymentAndSetup(block);
         
         // Run test.
-        long run_basicCost = adjustBasicCost(22668L);
+        long run_basicCost = 22668L;
         long run_miscCharges = 0L
                 + 95L + 300L + 100L + 37234L + 187L + 100L + 17372L + 600L + 100L + 100L
                 + 95L + 100L + 37234L + 194L + 63L
@@ -163,7 +180,7 @@ public class GraphReachabilityIntegrationTest {
         callStatic(block, contractAddr, run_basicCost + run_miscCharges + run_storageCharges + run_userlibCost, "runNewInstance_reentrant");
         
         // Verify result.
-        long check_basicCost = adjustBasicCost(22156L);
+        long check_basicCost = 22156L;
         long check_miscCharges = 0L + 95L + 300L + 100L + 37234L + 63L + 600L;
         long check_storageCharges = (StorageFees.READ_PRICE_PER_BYTE * graphSizeAfter) + writeCost;
 
@@ -184,7 +201,7 @@ public class GraphReachabilityIntegrationTest {
         Address contractAddr = doInitialDeploymentAndSetup(block);
         
         // Run test.
-        long run_basicCost = adjustBasicCost(22732L);
+        long run_basicCost = 22732L;
         long run_miscCharges = 0L
                 + 95L + 300L + 100L + 37234L + 187L + 100L + 17372L + 600L + 100L + 100L
                 + 95L + 100L + 37234L + 187L + 100L + 17372L + 600L + 100L + 100L
@@ -206,7 +223,7 @@ public class GraphReachabilityIntegrationTest {
         callStatic(block, contractAddr, run_basicCost + run_miscCharges + run_storageCharges + run_userlibCost, "runNewInstance_reentrant2");
         
         // Verify result.
-        long check_basicCost = adjustBasicCost(22156L);
+        long check_basicCost = 22156L;
         long check_miscCharges = 95L + 300L + 100L + 37234L + 63L + 600L;
         // Reads/write of the same cost.
         long check_storageCharges = (StorageFees.READ_PRICE_PER_BYTE * graphSizeAfter) + writeCost;
@@ -235,21 +252,18 @@ public class GraphReachabilityIntegrationTest {
 
         AvmTransactionResult createResult = (AvmTransactionResult) avmRule.deploy(deployer, BigInteger.ZERO, txData, energyLimit, energyPrice).getTransactionResult();
         Assert.assertEquals(AvmTransactionResult.Code.SUCCESS, createResult.getResultCode());
+
         Address contractAddr = new Address(createResult.getReturnData());
         
         // Check that the deployment cost is what we expected.
         // The first three numbers here are: basic cost of tx, processing cost and storage cost
         long basicCost = BillingRules.getBasicTransactionCost(txData);
-        long codeInstantiationOfDeploymentFee = BillingRules.getDeploymentFee(11, optimizedJar.length);
-        long miscCharges = basicCost + codeInstantiationOfDeploymentFee + 185L + 300L + 1500L + 3L + 31L;
+        long codeInstantiationOfDeploymentFee = BillingRules.getDeploymentFee(4, optimizedJar.length);
+        long miscCharges = basicCost + codeInstantiationOfDeploymentFee + 389L + 1500L + 3L + 31L + 1723L + 91L;
         // One write of 17223.
         long storageCharges = 17223L;
 
-        // This number is an adjustment factor for the cost changes associated with the various ABI improvements
-        // TODO (AKI-120): Get rid of this number, by adjusting the precise measures in the factors above
-        long userlibCost = -5282L;
-
-        long totalExpectedCost = miscCharges + storageCharges + userlibCost;
+        long totalExpectedCost = miscCharges + storageCharges;
 
         Assert.assertEquals(totalExpectedCost, createResult.getEnergyUsed());
         Assert.assertEquals(energyLimit - totalExpectedCost, createResult.getEnergyRemaining());
@@ -270,13 +284,16 @@ public class GraphReachabilityIntegrationTest {
     }
 
     private static long getCost_check249(boolean before) {
-        long basicCost = adjustBasicCost(21784L);
-        long miscCharges = 95L + 300L + 100L + 37234L + 65L + 29L + 50L;
+        long basicCost = 21784L;
+        long miscCharges = 209L + 100L + 77L + 37L + 39L + 41L + 114L + 37L + 39L
+                            + 23L + 53L + 23L + 76L + 53L + 82L + 148L + 256L + 24L
+                            + 100L+ 1508L + 600L + 26L + 26L + 68L + 640L + 68L+ 640L
+                            + 140L + 79L + 37L + 39L + 23L + 76L + 49L + 258L + 65L + 29L + 50L;
         // We end up with a slightly different cost before/after changes.
         if (before) {
-            miscCharges += 30L + 71L + 23L;
+            miscCharges += 30L + 71L + 23L + 100L;
         } else {
-            miscCharges += 23L;
+            miscCharges += 23L + 100L;
         }
         int graphSizeBefore = 6260;
         int graphSizeAfter = 6256;
@@ -284,30 +301,21 @@ public class GraphReachabilityIntegrationTest {
                 ? (StorageFees.READ_PRICE_PER_BYTE * graphSizeBefore) + (StorageFees.WRITE_PRICE_PER_BYTE * graphSizeBefore)
                 : (StorageFees.READ_PRICE_PER_BYTE * graphSizeAfter) + (StorageFees.WRITE_PRICE_PER_BYTE * graphSizeAfter);
 
-        // This number is an adjustment factor for the cost changes associated with the various ABI improvements
-        // TODO (AKI-120): Get rid of this number, by adjusting the precise measures in the factors above
-        long userlibCost = -31821;
-        return basicCost + miscCharges + storageCharges + userlibCost;
+        return basicCost + miscCharges + storageCharges;
     }
 
     private static long getCost_setup249() {
 
-        long basicCost = adjustBasicCost(21644L);
-        long miscCharges = 95L + 300L + 100L + 37234L + 716L + 63L + 63L + 63L + 63L + 63L;
+        long basicCost = 21644L;
+        long miscCharges = 209L + 100L + 77L + 37L + 39L + 41L + 114L + 37L + 39L + 23L + 53L + 23L
+                            + 76L + 53L + 82L + 148L + 256L + 24L + 100L+ 1508L + 600L + 26L + 26L
+                            + 68L + 640L + 94L + 716L + 63L+ 63L + 63L + 63L + 63L + 100L;
         int graphSizeBefore = 5741;
         int graphSizeAfter = 6260;
         int readCost = StorageFees.READ_PRICE_PER_BYTE * graphSizeBefore;
         int writeCost = StorageFees.WRITE_PRICE_PER_BYTE * graphSizeAfter;
         long storageCharges = readCost + writeCost;
 
-        // This number is an adjustment factor for the cost changes associated with the various ABI improvements
-        // TODO (AKI-120): Get rid of this number, by adjusting the precise measures in the factors above
-        long userlibCost = -33136;
-
-        return basicCost + miscCharges + storageCharges + userlibCost;
-    }
-
-    private static long adjustBasicCost(long cost) {
-        return cost;
+        return basicCost + miscCharges + storageCharges;
     }
 }
