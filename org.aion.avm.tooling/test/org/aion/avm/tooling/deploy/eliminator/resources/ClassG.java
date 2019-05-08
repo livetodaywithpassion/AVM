@@ -1,12 +1,31 @@
 package org.aion.avm.tooling.deploy.eliminator.resources;
 
+import avm.Blockchain;
+
 public class ClassG extends ClassE {
 
-    public static void main() {
+    public static byte[] main() {
         InterfaceB b = new ClassF();
         b.interfaceB();
         ClassD d = new ClassG();
         d.classD();
+        ClassF f = new ClassF();
+        f.interfaceC();
+        ClassF.classFStaticMethod();
+        callClassD(5);
+        invokeFlambda();
+        return null;
+    }
+
+    public static void invokeFlambda() {
+        ClassF f = new ClassF();
+        int y = f.getIncrementorLambda().apply(5);
+        Blockchain.require(y == 6);
+    }
+
+    private static void callClassD(int val) {
+        ClassD d = new ClassF();
+        d.interfaceC();
     }
 
     public char classF() {

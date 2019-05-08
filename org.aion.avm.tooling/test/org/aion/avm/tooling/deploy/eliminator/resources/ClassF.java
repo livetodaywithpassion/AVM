@@ -1,9 +1,28 @@
 package org.aion.avm.tooling.deploy.eliminator.resources;
 
+import java.util.function.Function;
+
 public class ClassF extends ClassE {
+
+    public Function<Integer, String> func;
 
     public char classF() {
         return 'f';
+    }
+
+    public Function<Integer, Integer> getIncrementorLambda() {
+        String str = "aaaaaaaaaaaaaa";
+        func = (x) -> str.substring(0, x);
+        Function<String, Integer> func2 = (inputStr) -> onlyCalledByLambda(inputStr);
+        return func2.compose(func);
+    }
+
+    private int onlyCalledByLambda(String s) {
+        return  s.length();
+    }
+
+    public static int classFStaticMethod() {
+        return 5;
     }
 
     @Override
@@ -24,10 +43,5 @@ public class ClassF extends ClassE {
     @Override
     public char interfaceB() {
         return 'b' + 'f';
-    }
-
-    @Override
-    public char interfaceC() {
-        return 'c' + 'f';
     }
 }

@@ -31,18 +31,19 @@ public class ClassDependencyVisitor extends ClassVisitor {
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
         String[] exceptions) {
-        MethodDependencyVisitor mv = new MethodDependencyVisitor(name,
+        MethodDependencyVisitor mv = new MethodDependencyVisitor(name, descriptor,
             super.visitMethod(access, name, descriptor, signature, exceptions));
         methodVisitors.add(mv);
         return mv;
+
     }
 
     @Override
     public void visitEnd() {
         for (MethodDependencyVisitor methodVisitor : methodVisitors) {
-            MethodInfo methodInfo = new MethodInfo(methodVisitor.getMethodName());
+            MethodInfo methodInfo = new MethodInfo(methodVisitor.getMethodIdentifier());
             methodInfo.setMethodInvocations(methodVisitor.getMethodsCalled());
-            methodMap.put(methodVisitor.getMethodName(), methodInfo);
+            methodMap.put(methodVisitor.getMethodIdentifier(), methodInfo);
         }
     }
 

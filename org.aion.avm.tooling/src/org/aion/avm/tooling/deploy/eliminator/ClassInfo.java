@@ -8,16 +8,33 @@ import java.util.Set;
 public class ClassInfo {
 
     private String className;
-    private byte[] classBytes;
 
     private Map<String, MethodInfo> methodMap = new HashMap<>();
 
     private Set<ClassInfo> parents = new HashSet<>();
     private Set<ClassInfo> children = new HashSet<>();
 
-    public ClassInfo(String className, byte[] classBytes) {
+    private ClassInfo superInfo;
+
+    public ClassInfo(String className) {
         this.className = className;
-        this.classBytes = classBytes;
+    }
+
+    public void setSuperclass(ClassInfo superInfo) {
+        this.superInfo = superInfo;
+    }
+
+    public ClassInfo getSuperclass() {
+        return superInfo;
+    }
+
+    public void setMethodAsReachable(String methodId) {
+        MethodInfo methodInfo = methodMap.get(methodId);
+        if (null == methodInfo) {
+            superInfo.setMethodAsReachable(methodId);
+        } else {
+            methodInfo.setReachable();
+        }
     }
 
     public void addToParents(ClassInfo parent, Set<ClassInfo> ancestors) {

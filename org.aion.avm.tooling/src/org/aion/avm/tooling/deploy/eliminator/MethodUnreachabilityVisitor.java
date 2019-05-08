@@ -6,12 +6,12 @@ import org.objectweb.asm.Handle;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class MethodDependencyVisitor extends MethodVisitor {
+public class MethodUnreachabilityVisitor extends MethodVisitor {
 
     private String methodIdentifier;
     private Set<MethodInvocation> methodsCalled = new HashSet<>();
 
-    public MethodDependencyVisitor(String methodName, String methodDescriptor, MethodVisitor mv) {
+    public MethodUnreachabilityVisitor(String methodName, String methodDescriptor, MethodVisitor mv) {
         super(Opcodes.ASM6, mv);
         // the concatenation of name + descriptor is a unique identifier for every method in a class
         this.methodIdentifier = methodName + methodDescriptor;

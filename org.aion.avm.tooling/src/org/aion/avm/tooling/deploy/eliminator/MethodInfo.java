@@ -5,12 +5,12 @@ import java.util.Set;
 
 public class MethodInfo {
 
-    private String methodName;
+    private String methodIdentifier;
     private boolean reachable = false;
     private Set<MethodInvocation> methodInvocations = new HashSet<>();
 
-    public MethodInfo(String methodName) {
-        this.methodName = methodName;
+    public MethodInfo(String methodIdentifier) {
+        this.methodIdentifier = methodIdentifier;
     }
 
     public void setMethodInvocations(
@@ -22,12 +22,12 @@ public class MethodInfo {
         return methodInvocations;
     }
 
-    public String getMethodName() {
-        return methodName;
+    public String getMethodIdentifier() {
+        return methodIdentifier;
     }
 
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
+    public void setMethodIdentifier(String methodIdentifier) {
+        this.methodIdentifier = methodIdentifier;
     }
 
     public boolean isReachable() {

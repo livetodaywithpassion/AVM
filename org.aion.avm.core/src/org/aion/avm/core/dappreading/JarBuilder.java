@@ -162,6 +162,31 @@ public class JarBuilder {
         return builder.toBytes();
     }
 
+    /**
+     * Creates the in-memory representation of a JAR with the given main class and other classes.
+     *
+     * @param mainClassName The name of the main class to include and list in manifest (can be null).
+     * @param classMap A map of names to bytecode for all the classes, including the main.
+     * @return The bytes representing this JAR.
+     */
+    public static byte[] buildJarForMainNameAndClassMap(String mainClassName, Map<String, byte[]> classMap) {
+        byte[] mainClass = classMap.get(mainClassName);
+        if (null == mainClass) {
+            return null;
+        } else {
+            JarBuilder builder = new JarBuilder(null, mainClassName);
+            try {
+                for (Map.Entry<String, byte[]> entry : classMap.entrySet()) {
+                    builder.saveClassToStream(entry.getKey(), entry.getValue());
+                }
+            } catch (IOException e) {
+                // Can't happen - in-memory.
+                RuntimeAssertionError.unexpected(e);
+            }
+            return builder.toBytes();
+        }
+    }
+
     private final ByteArrayOutputStream byteStream;
     private final JarOutputStream jarStream;
     private final Set<String> entriesInJar;
